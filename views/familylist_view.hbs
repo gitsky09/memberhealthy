@@ -1,0 +1,352 @@
+<html>
+<head>
+  <meta charset="utf-8">
+  <link rel="shortcut icon" href="/assets/images/favicon.png">
+  <title>家庭自我健康監測管理系統</title>
+  <link href="/assets/css/bootstrap.css" rel="stylesheet" type="text/css"/>
+  <link href="/assets/css/all.css" rel="stylesheet" type="text/css"/>
+   
+    <!-- Plugins CSS -->
+    <link rel="stylesheet" href="/assets/css/plugins.css">
+    
+    <!-- Main Style CSS -->
+    <link rel="stylesheet" href="/assets/css/style.css">
+</head>
+<body class="d-flex flex-column h-100">
+  <!-- Header-area start -->
+    <header class="header header-sticky bg-dark">
+        <div class="header-area">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-5">
+                        <!-- logo Start -->
+                        <div class="logo">
+                            <a href="/" class="d-flex align-items-center text-white text-decoration-none"><img class="bi me-3" src="/assets/images/family.svg" width="48"><h2 class="mb-0 text-white">家庭自我健康監測管理系統</h2></a>
+                        </div><!--// logo End -->
+                    </div>
+                    <div class="col-lg-7">
+                        <!-- main-menu-area Start -->
+                        <div class="main-menu">
+                            <nav class="main-navigation">
+                                <ul>
+                                    <li><a href="/" class="text-center text-white">
+                                      <i class="bi d-block mx-auto mb-1 fas fa-home fa-lg"></i>首頁</a>
+                                    </li>
+                                    <li><a href="/dashboard/{{ family.family_code }}" class="text-center text-white">
+                                      <i class="bi d-block mx-auto mb-1 fas fa-tachometer-alt fa-lg"></i>異常監控</a>
+                                    </li>
+                                    <li class="active"><a href="/homepage/{{ family.family_code }}" class="text-center">
+                                      <i class="bi d-block mx-auto mb-1 fas fa-users fa-lg"></i>成員列表</a>
+                                    </li>
+                                    <li><a href="/records/{{ family.family_code }}" class="text-center text-white">
+                                      <i class="bi d-block mx-auto mb-1 fas fa-clipboard-list fa-lg"></i>體溫登記列表</a>
+                                    </li>
+                                </ul>
+                            </nav>
+                        </div><!--// main-menu-area End -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    <!-- Header-area end -->
+
+    
+
+  <!--成員列表-->
+  <div class="container">
+    <div class="row justify-content-md-center">
+      <div class="col col-lg-12">
+        {{!-- <h2 style="margin-top: 16px;">[{{ family.family_name }} <span style="color: red;">{{ family.family_code }}</span> {{ family.phone }} 主要聯絡人:{{ family.name }}] 家庭監測管理系統</h2> --}}
+        <h2 class="mt-2 fw-bold lh-lg d-inline"><i class="bi mx-auto mb-1 fas fa-users fa-sm me-2"></i>{{ family.family_name }}<span style="color: red;">(家族代碼為：{{ family.family_code }}，請記住此代碼)</span> 成員列表</h2>
+          <button class="mt-2 lh-lg btn btn-primary float-end" data-bs-toggle="modal" data-bs-target="#member_add">新增成員</button>
+        <table class="table table-striped table-hover" id="mytable">
+          <thead>
+            <tr>
+              <th>照片</th>
+              <th>姓名</th>
+              <th>稱謂</th>
+              <th>出生日期</th>
+              <th>性別</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- Handlebars : 簡稱 hbs 是一種網頁模版語言-->
+            <!-- 下面是hbs 取得 results 變數後，使用 each 語法將裡面的每一個元素取出，並放入網頁的表格中-->
+            {{#each results}}
+            <tr>
+              <td><img src='/assets{{ image_path }}' border="5" height="100" width="100" align="center"></td>
+              <td>{{ name }}</td>
+              <td>{{ nickname }}</td>
+              <td>{{ birthdate }}</td>
+              <td>{{ sex }}</td>
+              <td>
+                <!-- javascript:void(0) : 執行一運算式，但是不會回傳值出來   -->
+                <!-- btn, btn-sm, btn-info edit : 表示此元素 <a> 的 class 名稱， 這裡的目的是將 <a> 表現成像是按鈕，並給此按鈕一些設定，例如顏色與大小-->
+                <!-- data-* : 這是html5的語法，* 的位置你可以用任何名稱取代，但是不可以用大寫-->
+                <!-- 下面兩句語法中，使用許多 data-* 的設定，簡單來說，就是設定許多變數存放該列的內容值-->
+                
+                <a href="javascript:void(0);" class="btn btn-sm btn-secondary edit"  data-image_path="{{ image_path }} "data-member_id="{{ member_id}}" data-name="{{ name }}" data-birthdate="{{ birthdate }}" data-sex="{{ sex }}" data-nickname="{{ nickname }}">編輯</a>
+                {{#if isNotContact}}
+                <a href="javascript:void(0);" class="btn btn-sm btn-danger delete"  data-member_id="{{ member_id }}" data-image_path="{{ image_path }}">刪除</a>
+                {{/if}}
+              </td>
+            </tr>
+            {{/each}}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <!--成員列表結束-->
+
+  <!--新增成員資料的視窗-->
+  <form action="/add-member" enctype="multipart/form-data" method="post">
+  <div class="modal fade" id="member_add" aria-hidden="true" aria-labelledby="member_addLabel" tabindex="-1">
+  <div class="modal-dialog modal-lg modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header bg-primary">
+        <h3 class="modal-title text-white" id="member_addLabel"><strong>建立成員</strong></h3>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+          <div class="row">
+            <div class="col-sm-6">
+              <h4 class="mb-3 my-3">姓名</h4>
+              <input type="text" class="form-control" id="name" name="p_mebname" placeholder="請填寫姓名" required>
+            </div>
+
+            <div class="col-sm-6">
+              <h4 class="mb-3 my-3">稱謂</h4>
+              <input type="text" class="form-control" id="nickname" name="p_mebnn" placeholder="請填寫稱謂">
+            </div>
+
+          <div class="col-sm-6">
+            <h4 class="mb-3 my-3">出生日期</h4>
+            <div class="input-group mb-3">
+            <input type="text" class="form-control" id="birthdate" name="p_mebbir" placeholder="YYYY/MM/DD" required>
+            </div>
+          </div>
+          
+          <div class="col-sm-6">
+            <h4 class="mb-3 my-3">性別</h4>
+            <div class="form-check form-check-inline ">
+              <input name="p_mebsex" type="radio" class="form-check-input" value="男" id='male' required>
+              <label class="form-check-label" for="male">男</label>
+            </div>
+            <div class="form-check form-check-inline ">
+              <input name="p_mebsex" type="radio" class="form-check-input" value="女" id="female" required>
+              <label class="form-check-label" for="female">女</label>
+            </div>
+            {{!-- <div class="form-check form-check-inline ">
+              <input name="p_sex" type="radio" class="form-check-input" required="">
+              <label class="form-check-label" >其他</label>
+            </div> --}}
+          </div>
+
+          <div class="col-sm-12">
+            <h4 class="mb-3 my-3">上傳頭像</h4>
+            <div class="input-group mb-3">
+            <input type="file" accept=".jpg" class="form-control" id="addimg" name="image">
+            <label class="input-group-text" for="image_path">上傳頭像</label>
+            </div>
+            <img id="img_add" hieght="200" width="200"/>
+          </div>  
+          <input type="hidden" value="{{ family.family_id }}" name="family_id">
+          <input type="hidden" value="{{ family.family_code }}" name="family_code">   
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-primary btn-lg" type="submit">建立成員</button>
+      </div>
+    </div>
+  </div>
+</div>
+</form>
+
+<!--更新成員資料的視窗-->
+  <form action="/update-member" enctype="multipart/form-data" method="post">
+  <div class="modal fade" id="member_edit" aria-hidden="true" aria-labelledby="member_editLabel" tabindex="-1">
+  <div class="modal-dialog modal-lg modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header bg-primary">
+        <h3 class="modal-title text-white" id="member_editLabel"><strong>編輯成員</strong></h3>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+          <div class="row">
+            <div class="col-sm-6">
+              <h4 class="mb-3 my-3">姓名</h4>
+              <input type="text" class="form-control name" id="name" name="p_mebname" placeholder="請填寫姓名" required>
+            </div>
+
+            <div class="col-sm-6">
+              <h4 class="mb-3 my-3">稱謂</h4>
+              <input type="text" class="form-control nickname" id="nickname" name="p_mebnn" placeholder="請填寫稱謂">
+            </div>
+
+          <div class="col-sm-6">
+            <h4 class="mb-3 my-3">出生日期</h4>
+            <div class="input-group mb-3">
+            <input type="text" class="form-control birthdate" id="birthdate" name="p_mebbir" placeholder="YYYY/MM/DD" required>
+            </div>
+          </div>
+          
+          <div class="col-sm-6">
+            <h4 class="mb-3 my-3">性別</h4>
+            <div class="form-check form-check-inline ">
+              <input name="p_mebsex" type="radio" class="form-check-input" id="male2" value="男" required>
+              <label class="form-check-label p_sex" for="male2">男</label>
+            </div>
+            <div class="form-check form-check-inline ">
+              <input name="p_mebsex" type="radio" class="form-check-input" id="female2" value="女" required>
+              <label class="form-check-label p_sex" for="female2">女</label>
+            </div>
+            {{!-- <div class="form-check form-check-inline ">
+              <input name="p_sex" type="radio" class="form-check-input" required="">
+              <label class="form-check-label p_sex" >其他</label>
+            </div> --}}
+          </div>
+
+          <div class="col-sm-12">
+            <h4 class="mb-3 my-3">上傳頭像</h4>
+            <div class="input-group mb-3">
+            <input type="file" id="editimg" name="image">
+            <label class="input-group-text" for="editimg">上傳頭像</label>
+            </div>
+            <img id="img_edit" border="5" height="100" width="100" />
+          </div>  
+          </div>
+      </div>
+      <div class="modal-footer">
+        <input type="hidden" name="p_mebid" class="form-control member_id">
+        <input type="hidden" name="old_pic" class="form-control old_pic" >
+        <input type="hidden" value="{{ family.family_code }}" name="family_code"> 
+        <button class="btn btn-primary btn-lg" type="submit">更新成員</button>
+      </div>
+    </div>
+  </div>
+</div>
+</form>
+
+<!-- 刪除成員資料視窗-->
+  <form action="/delete-member" method="post">
+    <div class="modal fade" id="member_delete" aria-hidden="true" aria-labelledby="member_deleteLabel" tabindex="-1">
+      <div class="modal-dialog modal-lg modal-dialog-centered">
+          <div class="modal-content">
+              <div class="modal-header bg-primary">
+                <h3 class="modal-title text-white" id="member_deleteLabel"><strong>刪除成員</strong></h3>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                <strong>確定刪除此筆成員資料？</strong>
+              </div>
+              <div class="modal-footer">
+                  <input type="hidden" name="p_mebid" class="form-control member_id2" required>
+                  <input type="hidden" name="old_pic" class="form-control old_pic2" required>
+                  <input type="hidden" value="{{ family.family_code }}" name="family_code">
+                  <button type="button" class="btn btn-default" data-bs-dismiss="modal">Close</button>
+                  <button class="btn btn-primary btn-lg" type="submit">刪除成員</button>
+              </div>
+          </div>
+      </div>
+    </div>
+  </form>
+
+   
+  <footer class="footer mt-auto py-3 bg-dark">
+  <div class="container">
+    <div class="row justify-content-md-center">
+      <div class="col col-lg-2 text-white">專題成員名單：</div>
+      <div class="col col-lg-2 text-white">507170524 張亞亭</div>
+      <div class="col col-lg-2 text-white">507170354 郭德荃</div>
+      <div class="col col-lg-2 text-white">507170392 曾建棠</div>
+      <div class="col col-lg-2 text-white">507170536 吳韋德</div>
+      <div class="col col-lg-2 text-white">507170471 蔡柏寬</div>
+    </div>
+  </div>
+  </footer>
+
+<script src="/assets/js/bootstrap.js"></script>
+<script src="/assets/js/all.js"></script>
+<script src="/assets/js/jquery-3.5.1.js"></script>
+
+  <script>
+    // jQuery的標準寫法
+    $(document).ready(function(){
+
+        $('#mytable').on('click','.edit',function(){
+        
+            // 取得該列員工的資料
+            // 上述提到使用 data-* 可以自訂變數儲存內容值，在這裏則可以利用jQuery的語法 .data() 取出內容值
+            // 例如有一個變數 data-ename ， 則你可以用 .data(ename) 取出 data-ename的內容值
+            var image_path = $(this).data('image_path');
+            var member_id = $(this).data('member_id');
+            var name = $(this).data('name');
+            var birthdate = $(this).data('birthdate');
+            var sex = $(this).data('sex');
+            var nickname = $(this).data('nickname');
+
+            $('#member_edit').modal('show'); //顯示員工資料編輯視窗
+
+            if(sex == '男'){
+                $('#male2').attr('checked', true)
+            } else if(sex == '女'){
+                $('#female2').attr('checked', true)
+            }
+
+            $('.name').val(name);   //帶入相關變數資料
+            $('.birthdate').val(birthdate);
+            $('.nickname').val(nickname);
+            $('.member_id').val(member_id)
+            $('.old_pic').val(image_path);  // 取得員工照片檔名
+            
+            $('#img_edit').attr('src','/assets'+image_path); 
+        });
+
+      //顯示刪除員工資料視窗
+        $('#mytable').on('click','.delete',function(){
+            var member_id = $(this).data('member_id');
+            var image_path = $(this).data('image_path');
+            $('#member_delete').modal('show');
+            $('.member_id2').val(member_id);
+            $('.old_pic2').val(image_path);
+            
+        });
+
+
+                // 針對編輯視窗中的 上傳圖片元素 綁定事件 change  
+        $('#addimg').on('change', function(e){      
+                    
+            const file = this.files[0]; // 取得第一個檔案的相關資料
+                    
+            const fr = new FileReader();
+            fr.onload = function (e) {
+               $('#img_add').attr('src', e.target.result);  // img元素 加入 src資訊：檔案位置              
+            };
+      
+            // 使用 readAsDataURL 將圖片轉成 Base64
+            fr.readAsDataURL(file);  // 將讀到的image 轉成 Ｄata URL 並綁定在img 元素上的src屬性
+        });
+        
+        // 針對編輯視窗中的 上傳圖片元素 綁定事件 change 
+        $('#editimg').on('change', function(e){      
+                    
+            const file = this.files[0];
+                    
+            const fr = new FileReader();
+            fr.onload = function (e) {
+               $('#img_edit').removeProp('src');
+               $('#img_edit').attr('src', e.target.result);                   
+            };
+      
+            // 使用 readAsDataURL 將圖片轉成 Base64
+            fr.readAsDataURL(file);
+        });
+    });
+    
+  </script>
+  
+</body>
+</html>

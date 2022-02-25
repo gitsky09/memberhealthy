@@ -1,0 +1,134 @@
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <link rel="shortcut icon" href="/assets/images/favicon.png">
+  <title>家庭自我健康監測管理系統</title>
+  <link href="/assets/css/bootstrap.css" rel="stylesheet" type="text/css" />
+  <link href="/assets/css/all.css" rel="stylesheet" type="text/css" />
+
+  <!-- Plugins CSS -->
+  <link rel="stylesheet" href="/assets/css/plugins.css">
+
+  <!-- Main Style CSS -->
+  <link rel="stylesheet" href="/assets/css/style.css">
+</head>
+
+<body class="d-flex flex-column h-100">
+
+  <!-- Header-area start -->
+  <header class="header header-sticky bg-dark">
+    <div class="header-area">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-5">
+            <!-- logo Start -->
+            <div class="logo">
+              <a href="/" class="d-flex align-items-center text-white text-decoration-none"><img class="bi me-3"
+                  src="/assets/images/family.svg" width="48">
+                <h2 class="mb-0 text-white">家庭自我健康監測管理系統</h2>
+              </a>
+            </div>
+            <!--// logo End -->
+          </div>
+          <div class="col-lg-7">
+            <!-- main-menu-area Start -->
+            <div class="main-menu">
+              <nav class="main-navigation">
+                <ul>
+                  <li><a href="/" class="text-center text-white">
+                      <i class="bi d-block mx-auto mb-1 fas fa-home fa-lg"></i>首頁</a>
+                  </li>
+                  <li class="active"><a href="/dashboard/{{ family_code }}" class="text-center">
+                      <i class="bi d-block mx-auto mb-1 fas fa-tachometer-alt fa-lg"></i>異常監控</a>
+                  </li>
+                  <li><a href="/homepage/{{ family_code }}" class="text-center text-white">
+                      <i class="bi d-block mx-auto mb-1 fas fa-users fa-lg"></i>成員列表</a>
+                  </li>
+                  <li><a href="/records/{{ family_code }}" class="text-center text-white">
+                      <i class="bi d-block mx-auto mb-1 fas fa-clipboard-list fa-lg"></i>體溫登記列表</a>
+                  </li>
+                </ul>
+              </nav>
+            </div>
+            <!--// main-menu-area End -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+  <!-- Header-area end -->
+
+  <!-- Dashboard area -->
+  <div class="container mt-4">
+    <div class="row">
+      <h2 class="fw-bold d-inline"><i class="bi mx-auto mb-1 fas fa-users fa-sm me-2"></i>昨日成員狀況</h2>
+      <div class="col-12">
+        <div class="card p-4">
+          <div class="row row-cols-1 row-cols-md-6 g-4">
+
+            {{#each members}}
+            <div class="col">
+              <div class="card">
+                <img src='/assets{{ image_path }}' class="card-img-top img-fluid position-relative" style="max-height: 150px;">
+                <span class="position-absolute top-0 start-100 translate-middle badge">
+                  {{#if status}}
+                  <i class="fas fa-check-circle fa-3x" style="color:#198754"></i>
+                  {{else}}
+                  <i class="fas fa-exclamation-circle fa-3x" style="color:#DC3545;"></i>
+                  {{/if}}
+                </span>
+                <div class="card-body">
+                  <h3 class="card-title">{{ nickname }}</h3>
+                  <a href="/records/{{ family_code }}?member_id={{ member_id }}" class="d-block btn btn-primary">查看記錄</a>
+                </div>
+              </div>
+            </div>
+            {{/each}}
+            
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Dashboard area end -->
+
+  <!-- Dashboard area -->
+  <div class="container mt-4">
+    <div class="row">
+      <h2 class="fw-bold d-inline"><i class="bi mx-auto mb-1 fas fa-exclamation-circle fa-sm me-2"></i>近三天異常狀況</h2>
+      <div class="col-12">
+        <div class="card p-4">
+          <div class="list-group list-group-flush">
+            {{#each records}}
+            <a href="#" class="list-group-item list-group-item-action">{{ result }}</a>
+            {{/each}}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Dashboard area end -->
+
+  <footer class="footer mt-auto py-2 bg-dark">
+    <div class="container">
+      <div class="row justify-content-md-center">
+        <div class="col col-lg-2 text-white">專題成員名單：</div>
+        <div class="col col-lg-2 text-white">507170524 張亞亭</div>
+        <div class="col col-lg-2 text-white">507170354 郭德荃</div>
+        <div class="col col-lg-2 text-white">507170392 曾建棠</div>
+        <div class="col col-lg-2 text-white">507170536 吳韋德</div>
+        <div class="col col-lg-2 text-white">507170471 蔡柏寬</div>
+      </div>
+    </div>
+  </footer>
+</body>
+
+<script src="/assets/js/bootstrap.js"></script>
+<script src="/assets/js/all.js"></script>
+<script src="/assets/js/jquery-3.5.1.js"></script>
+
+</body>
+
+</html>

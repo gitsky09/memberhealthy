@@ -1,0 +1,311 @@
+<html>
+<head>
+  <meta charset="utf-8">
+  <link rel="shortcut icon" href="/assets/images/favicon.png">
+  <title>家庭自我健康監測管理系統</title>
+  <link href="/assets/css/bootstrap.css" rel="stylesheet" type="text/css"/>
+  <link href="/assets/css/all.css" rel="stylesheet" type="text/css"/>
+    
+    <!-- Plugins CSS -->
+    <link rel="stylesheet" href="/assets/css/plugins.css">
+    
+    <!-- Main Style CSS -->
+    <link rel="stylesheet" href="/assets/css/style.css">
+</head>
+
+<body class="d-flex flex-column h-100">
+
+    <!-- Header-area start -->
+    <header class="header header-sticky bg-dark">
+        <div class="header-area">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-5">
+                        <!-- logo Start -->
+                        <div class="logo">
+                            <a href="/" class="d-flex align-items-center text-white text-decoration-none"><img class="bi me-3" src="/assets/images/family.svg" width="48"><h2 class="mb-0 text-white">家庭自我健康監測管理系統</h2></a>
+                        </div><!--// logo End -->
+                    </div>
+                    <div class="col-lg-7">
+                        <!-- main-menu-area Start -->
+                        <div class="main-menu">
+                            <nav class="main-navigation">
+                                <ul>
+                                    <li class="active"><a href="/" class="text-center">
+                                      <i class="bi d-block mx-auto mb-1 fas fa-home fa-lg"></i>首頁</a>
+
+                                    <li><a href="#exampleModalToggle" data-bs-toggle="modal" data-bs-target="#exampleModalToggle" role="button" class="text-center text-white">
+                                      <i class="bi d-block mx-auto mb-1 fas fa-house-user fa-lg"></i>建立家族</a>
+                                    </li>
+                                    <li><a href="#exampleModalToggle2" data-bs-toggle="modal" data-bs-target="#exampleModalToggle2" role="button" class="text-center text-white">
+                                      <i class="bi d-block mx-auto mb-1 fas fa-user-circle fa-lg"></i>登入家族</a>
+                                    </li>
+                                </ul>
+                            </nav>
+                        </div><!--// main-menu-area End -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    <!-- Header-area end -->
+
+    <!-- breadcrumb-area start -->
+    <div class="breadcrumb-area section-ptb">
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    
+                    <!-- breadcrumb-list end -->
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- breadcrumb-area end -->
+
+  
+  <div class="perfect-start-aera bg-grey">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="perfect-start-inner text-center">
+                    <p>防疫共同落實，守護你我安全 - 戴口罩、量體溫、勤洗手、常消毒</p>
+                </div>
+            </div>
+        </div>
+    </div>
+  </div>
+
+  <div class="container mt-4">
+    <div class="row justify-content-md-center">
+      <h2 class="">關於本站</h2>
+      <div class="col col-lg-12 my-3">
+        <h3>建置家族成員的自我健康監測管理。可登錄每日早、晚體溫，健康狀況和活動史及健康記錄追蹤</h3>
+      </div>
+    </div>
+      <div class="row justify-content-md-center">
+        <h2>相關連結</h2>
+        <div class="col col-lg-3 my-3">
+          <a href="https://www.facebook.com/TWCDC" target="_blank">
+          <img class="img-fluid img-thumbnail" src="/assets/images/banner_1.jpg" alt="衛生福利部疾病管制署" title="衛生福利部疾病管制署">
+          </a>
+        </div>
+        <div class="col col-lg-3 my-3">
+          <a href="https://www.mohw.gov.tw/" target="_blank">
+          <img class="img-fluid img-thumbnail" src="/assets/images/banner_2.jpg" alt="衛生福利部" title="衛生福利部">
+          </a>
+        </div>
+        <div class="col col-lg-3 my-3">
+          <a href="https://www.facebook.com/TWCDC" target="_blank">
+          <img class="img-fluid img-thumbnail" src="/assets/images/banner_3.jpg" alt="1922防疫達人" title="1922防疫達人">
+          </a>
+        </div>
+        {{!-- <div class="col col-lg-3 my-3">
+          <img class="img-fluid img-thumbnail" src="/assets/images/banner_1.jpg" alt="">
+        </div>
+        <div class="col col-lg-3 my-3">
+          <img class="img-fluid img-thumbnail" src="/assets/images/banner_1.jpg" alt="">
+        </div>
+        <div class="col col-lg-3 my-3">
+          <img class="img-fluid img-thumbnail" src="/assets/images/banner_1.jpg" alt="">
+        </div>
+        <div class="col col-lg-3 my-3">
+          <img class="img-fluid img-thumbnail" src="/assets/images/banner_1.jpg" alt="">
+        </div>
+        <div class="col col-lg-3 my-3">
+          <img class="img-fluid img-thumbnail" src="/assets/images/banner_1.jpg" alt="">
+        </div> --}}
+      </div>
+    </div>
+  </div>
+
+<!-- Modal windows -->
+<form action="/create-family" enctype="multipart/form-data" method="post" >
+<div class="modal fade" id="exampleModalToggle" aria-hidden="true" aria-labelledby="exampleModalToggleLabel" tabindex="-1">
+  <div class="modal-dialog modal-lg modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header bg-primary">
+        <h3 class="modal-title text-white" id="exampleModalToggleLabel"><strong>建立家族</strong></h3>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      
+        <div class="modal-body">
+          
+            <div class="row">
+
+              <div class="col-sm-6">
+                <h4 class="mb-3 my-3">家族名稱</h4>
+                <input type="text" class="form-control" id="family_name" name="family_name" placeholder="請填寫家族名稱" required>
+              </div>
+
+              <div class="col-sm-6">
+                <h4 class="mb-3 my-3">聯絡電話</h4>
+                <input type="text" class="form-control" name="phone" placeholder="請填寫聯絡電話" required>
+              </div>
+
+              <div class="col-sm-6">
+                <h4 class="mb-3 my-3">姓名</h4>
+                <input type="text" class="form-control" id="name" name="p_mebname" placeholder="請填寫姓名" required>
+              </div>
+
+              <div class="col-sm-6">
+                <h4 class="mb-3 my-3">稱謂</h4>
+                <input type="text" class="form-control" id="nickname" name="p_mebnn" placeholder="請填寫稱謂">
+              </div>
+
+            <div class="col-sm-6">
+              <h4 class="mb-3 my-3">出生日期</h4>
+              <div class="input-group mb-3">
+              <input type="text" class="form-control" id="birthdate" name="p_mebbir" placeholder="YYYY/MM/DD" required>
+              </div>
+            </div>
+            
+            <div class="col-sm-6">
+              <h4 class="mb-3 my-3">性別</h4>
+              <div class="form-check form-check-inline ">
+                <input name="p_mebsex" type="radio" class="form-check-input" value="男" id='male' required>
+                <label class="form-check-label" for="male">男</label>
+              </div>
+              <div class="form-check form-check-inline ">
+                <input name="p_mebsex" type="radio" class="form-check-input" value="女" id='female' required>
+                <label class="form-check-label" for="female">女</label>
+              </div>
+              {{!-- <div class="form-check form-check-inline ">
+                <input name="p_mebsex" type="radio" class="form-check-input" required="">
+                <label class="form-check-label" >其他</label>
+              </div> --}}
+            </div>
+
+            <div class="col-sm-12">
+              <h4 class="mb-3 my-3">上傳頭像</h4>
+              <div class="input-group mb-3">
+              <input type="file" accept=".jpg" class="form-control" id="addimg" name="image">
+              <label class="input-group-text" for="addimg">上傳頭像</label>
+              </div>
+              <img id="img_add" hieght="200" width="200"/>
+            </div>  
+            </div>
+          
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-secondary btn-lg" data-bs-target="#exampleModalToggle2" data-bs-toggle="modal" data-bs-dismiss="modal">已建立家族，登入家族</button>
+          <button class="btn btn-primary btn-lg" type="submit">建立家族</button>
+        </div>
+      
+    </div>
+  </div>
+</div>
+</form>
+
+
+{{!-- <form action="/homepage" enctype="multipart/form-data" method="post"> --}}
+<div class="modal fade" id="exampleModalToggle2" aria-hidden="true" aria-labelledby="exampleModalToggleLabel2" tabindex="-1">
+  <div class="modal-dialog  modal-lg modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header bg-primary">
+        <h3 class="modal-title text-white" id="exampleModalToggleLabel2"><strong>登入家族</strong></h3>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+      
+          <div class="row">
+            <div class="col-sm-12">
+              <label for="firstName" class="form-label">家族代碼</label>
+              <input type="text" class="form-control" name="family_code" id="loginCode" placeholder="請輸入家族代碼" required>
+            </div>
+          </div>
+        
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-link btn-lg" data-bs-target="#familyCodeSearch" data-bs-toggle="modal" data-bs-dismiss="modal">查詢家族代碼</button>
+        <button class="btn btn-secondary btn-lg" data-bs-target="#exampleModalToggle" data-bs-toggle="modal" data-bs-dismiss="modal">建立家族</button>
+        <button class="btn btn-primary btn-lg" id="loginBtn">登入家族</button>
+      </div>
+    </div>
+  </div>
+</div>
+{{!-- </form> --}}
+
+<div class="modal fade" id="familyCodeSearch" aria-hidden="true" aria-labelledby="familyCodeSearchLabel" tabindex="-1">
+  <div class="modal-dialog  modal-lg modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header bg-primary">
+        <h3 class="modal-title text-white" id="familyCodeSearchLabel"><strong>查詢家族代碼</strong></h3>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+          <div class="row">
+            <div class="col-sm-12">
+              <h4 class="mb-3 my-3">聯絡電話</h4>
+              <input type="text" class="form-control" id="phone" placeholder="請輸入聯絡電話">
+              <div id="passwordHelpBlock" class="form-text">
+              您的家族代碼為：<span class="text-danger" id="code"></span>
+            </div>
+            </div>
+          </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-primary btn-lg" id="searchBtn">查詢家族代碼</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal windows 結束 -->
+
+  <footer class="footer mt-auto py-2 bg-dark">
+  <div class="container">
+    <div class="row justify-content-md-center">
+      <div class="col col-lg-2 text-white">專題成員名單：</div>
+      <div class="col col-lg-2 text-white">507170524 張亞亭</div>
+      <div class="col col-lg-2 text-white">507170354 郭德荃</div>
+      <div class="col col-lg-2 text-white">507170392 曾建棠</div>
+      <div class="col col-lg-2 text-white">507170536 吳韋德</div>
+      <div class="col col-lg-2 text-white">507170471 蔡柏寬</div>
+    </div>
+  </div>
+  </footer>
+</body>
+
+<script src="/assets/js/bootstrap.js"></script>
+<script src="/assets/js/all.js"></script>
+<script src="/assets/js/jquery-3.5.1.js"></script>
+<script>
+  
+
+  $('#addimg').on('change', function(e){      
+                    
+            const file = this.files[0]; // 取得第一個檔案的相關資料
+                    
+            const fr = new FileReader();
+            fr.onload = function (e) {
+               $('#img_add').attr('src', e.target.result);  // img元素 加入 src資訊：檔案位置              
+            };
+      
+            // 使用 readAsDataURL 將圖片轉成 Base64
+            fr.readAsDataURL(file);  // 將讀到的image 轉成 Ｄata URL 並綁定在img 元素上的src屬性
+        });
+
+  $('#searchBtn').click(function(e){
+    $('#code').text('')
+    let data = {phone:$('#phone').val()}
+    $.ajax('/find-family-code',{method:'post',data:data}).done((response)=>{
+        $('#code').text(response.code)
+      })
+
+  })
+
+  $('#loginBtn').click(function(e){
+    let loginCode = $('#loginCode').val()
+    if(loginCode){
+      window.location.href = "http://localhost:8000/homepage/" + loginCode;
+    }
+  })
+
+  
+
+</script>
+
+  
+</body>
+</html>
